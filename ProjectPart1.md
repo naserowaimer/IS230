@@ -1,10 +1,23 @@
-IS230 Tutorial – Project Part I
+# IS230 Tutorial – Project Part I
 ER design and implementation
-## Project introduction
+## Project information
 ### Student
 **Name:** Nasser Alowaymir
 
 **ID:** 445102817
+
+### Table of contents
+1. [Project Information](#project-information)  
+   1.1 [Student Information](#student)  
+   1.2 [Project Introduction](#project-introduction)  
+   1.3 [Project Requirements](#project-requirments)  
+   1.4 [Project Description](#project-describtion)  
+   1.5 [Project instructiuons](#project-instructions)  
+3. [Project Implementation](#project-implementaion)  
+   2.1 [Entity-Relationship Diagram (ERD)](#1-er)  
+   2.2 [MySQL Workbench Relational Model](#2-mysql-workbench)  
+   2.3 [SQL Script to Generate the Database](#3-sql-script-to-generate-the-database)  
+
 ### Project introduction
 This project is for making a ERD, relational model, and export it as sql commands according to the requirments given below.
 ### Project requirments
@@ -24,14 +37,14 @@ This project is for making a ERD, relational model, and export it as sql command
 </br>
 
 ---
-#### Project describtion
+#### Project describtion 
+****ERD Notes** [^1]
 
 The KSU Helpdesk Unit needs to design a database to follow up on technical support provided to its users (employees, faculties, students, etc.) facing any kind of problems during their work. The following information is needed to keep track of users: the username (identifier), their full-name, a mobile number, and their affiliation.<mark>Affiliation consists</mark>[^1] of: the college and the department to which the user is affiliated. To request help from the unit, a user may open **one or several** tickets. A ticket is uniquely described by a ticket ID and needs to record the opening date. A ticket is opened by **one and only one** *user*. Afterwards a ticket is resolved by <mark>**one** *Fix* **or many**</mark>[^2] Fixes. A Fix number uniquely identifies a Fix; and a Fix also has a Fix designation and a <mark>**ticket total** number</mark>[^3] (representing the number of tickets resolved by that Fix). A Fix may resolve **one or more** *tickets*. The database also stores the technicians who work at the help desk. Each technician is defined by their employee ID and we also record their email addresses, which might be **more than one**. A technician may work **on one or more** *Fixes*; a Fix must have **at least one** technician working on it. Note that each technician may leave a comment on a Fix they worked on. A <mark>Fix may have prerequisites</mark>[^4] (i.e. it requires other Fixes to be finished first). <mark>Finally, at the closure of a ticket, a ticket rating is conducted. A ticket rating has a category and is identified by a rating ID, though a ticket may have any number of ratings, the **rating ID always starts from 1 for each ticket**.</mark>[^5]
 
 <br/>
 
----
-**ERD Notes**
+
 [^1]: I assumed that it is jus a composite attribute, since is hasn’t any relations to other entities, and can vary between users.
 
 [^2]: Since a ticket may hasn’t been solved yet, so it could exist without a Fix made for it. Then I am going to make it optional.
