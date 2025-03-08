@@ -243,3 +243,7 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 ```
 Find the sql file here: [db.sql](./db.sql)
+
+---
+
+Finally, Find the full project in my github account, [here](https://github.com/naserowaimer/IS230)
