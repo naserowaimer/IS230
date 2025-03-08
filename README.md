@@ -2,4 +2,4 @@
 KSU Information Systems subject 230: Databases
 This repo will hold my projects and homworks for this subject.
 
-Find the Report for first part of the Tutorial Project here: (Project part 1.md)[./Project%20part%201.md]
+Find the Report for first part of the Tutorial Project here: !(Project part 1.md)[./Project%20part%201.md]
