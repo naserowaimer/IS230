@@ -29,13 +29,16 @@ JDBC (Java & Mariadb SQL)
 ## Project Implementaion
 I made the project in the "clean code" way, that helps readibility and consistintly for code maintainence. According to that I made two Java classes:
 1. DB.java
+
 Here I made a database connection uttility that helps passing the SQL quereis easily without any JDBC stuffs disturbing. When making a new object of this class it makes a connection according to database's information provided via it's constructor. Then, when need to update/insert any rows use `update()` method passing sql command as String. And when need to query and displaying any data use `query()` method passing the sql command also, and this mehtod returns a `ResultSet` object which includes the return from the database.
 2. App.java
+
 The main application class, which includes the main method that runs the main menu of the app. I made a database object and used it in the whole code implementaion using the `DB.java` class'es methods and abilities. I tried to make the code reusable and more able to be implemented in an actual real life project.
 
 
 ### Code snippets
 1. DB.java code
+
 ```java 
 import java.sql.*;
 public class DB {
@@ -134,6 +137,7 @@ public static String newEmployeeCall(){
 }
 ```
 3. main method code for DISPLAYING records
+
 ```java
 public static void displayAllCall(){
     ResultSet result = db.query("SELECT * FROM "+table);
@@ -155,6 +159,7 @@ public static void displayAllCall(){
 ```
 
 4. main method for INCREASING the salary (Give yearly raises)
+
 ```java
 public static void yearlyRaisingCall(){
     System.out.println("Giving yearly raises: ");
@@ -202,17 +207,26 @@ public static void yearlyRaisingCall(){
 ```
 ### Screenshots of execution
 1. Main menu
+
 ![Main menu](./screenshot1.png)
+
 2. Adding Emlpoyee
+
 ![Adding Emlpoyee](./screenshot2.png)
+
 3. Displaying all Employees
+
 ![Displaying all Employees](./screenshot3.png)
+
 4. Adding yearly raising
+
 ![Adding yearly raising](./screenshot4.png)
 
 ---
 ### The full code:
+
 #### DB.java
+
 ```java
 import java.sql.*;
 public class DB {
@@ -282,7 +296,9 @@ public class DB {
     
 }
 ```
+
 #### App.java
+
 ```java
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -413,7 +429,7 @@ public class App {
 }
 ```
 
-Get the java project ZIP [here](https://github.com/naserowaimer/IS230/phase2/JDBC_project.zip).
+Get the java project ZIP [here](https://github.com/naserowaimer/IS230/raw/refs/heads/main/phase2/JDBC_project.zip).
 
 Finally, Find the full project in my github account, [here](https://github.com/naserowaimer/IS230)
 ****
