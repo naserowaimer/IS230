@@ -8,18 +8,6 @@ JDBC (Java & Mariadb SQL)
 
 **ID:** 445102817
 
-### Table of contents
-1. [Project Information](#project-information)  
-   1.1 [Student Information](#student)  
-   1.2 [Project Introduction](#project-introduction)  
-   1.3 [Project Requirements](#project-requirments)  
-   1.4 [Project Description](#project-describtion)  
-   1.5 [Project instructiuons](#project-instructions)  
-3. [Project Implementation](#project-implementaion)  
-   2.1 [Entity-Relationship Diagram (ERD)](#1-er)  
-   2.2 [MySQL Workbench Relational Model](#2-mysql-workbench)  
-   2.3 [SQL Script to Generate the Database](#3-sql-script-to-generate-the-database)  
-
 ### Project requirments
 
 
@@ -425,7 +413,7 @@ public class App {
 }
 ```
 
-Get the java project ZIP [here](https://github.com/naserowaimer/IS230).
+Get the java project ZIP [here](https://github.com/naserowaimer/IS230/phase2/JDBC_project.zip).
 
 Finally, Find the full project in my github account, [here](https://github.com/naserowaimer/IS230)
 ****
