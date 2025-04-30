@@ -4,6 +4,7 @@ JDBC (Java & Mariadb SQL)
 
 ## Project information
 ### Student
+
 **Name:** Nasser Alowaymir
 
 **ID:** 445102817
@@ -28,15 +29,18 @@ JDBC (Java & Mariadb SQL)
 
 ## Project Implementaion
 I made the project in the "clean code" way, that helps readibility and consistintly for code maintainence. According to that I made two Java classes:
+
 1. DB.java
 
 Here I made a database connection uttility that helps passing the SQL quereis easily without any JDBC stuffs disturbing. When making a new object of this class it makes a connection according to database's information provided via it's constructor. Then, when need to update/insert any rows use `update()` method passing sql command as String. And when need to query and displaying any data use `query()` method passing the sql command also, and this mehtod returns a `ResultSet` object which includes the return from the database.
+
 2. App.java
 
 The main application class, which includes the main method that runs the main menu of the app. I made a database object and used it in the whole code implementaion using the `DB.java` class'es methods and abilities. I tried to make the code reusable and more able to be implemented in an actual real life project.
 
 
 ### Code snippets
+
 1. DB.java code
 
 ```java 
@@ -58,10 +62,10 @@ public class DB {
         if(conn==null){
             try {
                 conn = DriverManager.getConnection(url, user, pwd);
+                System.out.println("Successfully connected to database");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            System.out.println("Successfully connected to database");
             return conn;
         }else return conn;
     }
@@ -108,7 +112,7 @@ public class DB {
     
 }
 ```
-2. main method code for INSERTION
+2. main method code for INSERTION (In the same `switch` after user choosed the operation they want to perform)
 ```java
 boolean isAdding = true;
 while(isAdding){
@@ -120,7 +124,9 @@ while(isAdding){
     else isAdding=false;
 }
 ```
+
 `newEmployeeCall()` Method code:
+
 ```java
 public static String newEmployeeCall(){
     String[] res = new String[4];
@@ -136,6 +142,7 @@ public static String newEmployeeCall(){
     return res[0]+",'"+res[1]+"',"+res[2]+","+res[3];
 }
 ```
+
 3. main method code for DISPLAYING records
 
 ```java
@@ -158,52 +165,18 @@ public static void displayAllCall(){
 }
 ```
 
-4. main method for INCREASING the salary (Give yearly raises)
+4. main method for INCREASING the salary "Give yearly raises" (In the same `switch` after user choosed the operation they want to perform)
 
 ```java
-public static void yearlyRaisingCall(){
-    System.out.println("Giving yearly raises: ");
-    System.out.print("What is the sales goal?: ");
-    double goal = in.nextDouble();
-    System.out.println("Emlpyees data before raising:");
-    displayAllCall();
-    int employeesCount = 0;
-    try {
-        ResultSet res =db.query("SELECT COUNT(*) FROM "+ table);
+System.out.println("Giving yearly raises: ");
+System.out.print("What is the sales goal?: ");
+double goal = in.nextDouble();
+System.out.println("Emlpyees data before raising:");
+displayAllCall();
 
-        employeesCount = res.next() ? res.getInt(1) : 0;
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    int[] ids = new int[employeesCount];
-    double[] salaries = new double[employeesCount];
-    double[] sales = new double[employeesCount];
-    ResultSet res = db.query("SELECT * FROM "+table);
-    
-    try {
-        int i = 0;
-        while(res.next()){
-            ids[i] = res.getInt("EmployeeId");
-            salaries[i]=res.getDouble("Salary");
-            sales[i]=res.getDouble("Sales");
-            // giving the rasing
-            System.out.println(i);
-            if (sales[i]>=goal) salaries[i] = salaries[i]+salaries[i]*0.1;
-            else salaries[i] = salaries[i]+salaries[i]*0.05;
-            i++;
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-
-    int i =0;
-    for(int id: ids){
-        db.update("UPDATE "+ table + " SET Salary = "+ salaries[i] + " WHERE EmployeeId = "+ id);
-        i++;
-    }
-    System.out.println("Emlpyees data after raising:");
-    displayAllCall();
-}
+db.update("UPDATE "+ table + " SET Salary = CASE WHEN Sales>= "+ goal + " THEN Salary*1.1 ELSE Salary *1.05 END");
+System.out.println("Emlpyees data after raising:");
+displayAllCall();
 ```
 ### Screenshots of execution
 1. Main menu
@@ -246,10 +219,10 @@ public class DB {
         if(conn==null){
             try {
                 conn = DriverManager.getConnection(url, user, pwd);
+                System.out.println("Successfully connected to database");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            System.out.println("Successfully connected to database");
             return conn;
         }else return conn;
     }
@@ -341,7 +314,15 @@ public class App {
                     displayAllCall();
                     break;
                 case 3:
-                    yearlyRaisingCall();
+                    System.out.println("Giving yearly raises: ");
+                    System.out.print("What is the sales goal?: ");
+                    double goal = in.nextDouble();
+                    System.out.println("Emlpyees data before raising:");
+                    displayAllCall();
+                    
+                    db.update("UPDATE "+ table + " SET Salary = CASE WHEN Sales>= "+ goal + " THEN Salary*1.1 ELSE Salary *1.05 END");
+                    System.out.println("Emlpyees data after raising:");
+                    displayAllCall();
                     break;
                 case 4:
                     isRunning = false;
@@ -381,50 +362,6 @@ public class App {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void yearlyRaisingCall(){
-        System.out.println("Giving yearly raises: ");
-        System.out.print("What is the sales goal?: ");
-        double goal = in.nextDouble();
-        System.out.println("Emlpyees data before raising:");
-        displayAllCall();
-        int employeesCount = 0;
-        try {
-            ResultSet res =db.query("SELECT COUNT(*) FROM "+ table);
-
-            employeesCount = res.next() ? res.getInt(1) : 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        int[] ids = new int[employeesCount];
-        double[] salaries = new double[employeesCount];
-        double[] sales = new double[employeesCount];
-        ResultSet res = db.query("SELECT * FROM "+table);
-        
-        try {
-            int i = 0;
-            while(res.next()){
-                ids[i] = res.getInt("EmployeeId");
-                salaries[i]=res.getDouble("Salary");
-                sales[i]=res.getDouble("Sales");
-                // giving the rasing
-                System.out.println(i);
-                if (sales[i]>=goal) salaries[i] = salaries[i]+salaries[i]*0.1;
-                else salaries[i] = salaries[i]+salaries[i]*0.05;
-                i++;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        int i =0;
-        for(int id: ids){
-            db.update("UPDATE "+ table + " SET Salary = "+ salaries[i] + " WHERE EmployeeId = "+ id);
-            i++;
-        }
-        System.out.println("Emlpyees data after raising:");
-        displayAllCall();
     }
 }
 ```

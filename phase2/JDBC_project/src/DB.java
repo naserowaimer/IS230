@@ -16,10 +16,10 @@ public class DB {
         if(conn==null){
             try {
                 conn = DriverManager.getConnection(url, user, pwd);
+                System.out.println("Successfully connected to database");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            System.out.println("Successfully connected to database");
             return conn;
         }else return conn;
     }

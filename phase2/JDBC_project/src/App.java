@@ -39,7 +39,15 @@ public class App {
                     displayAllCall();
                     break;
                 case 3:
-                    yearlyRaisingCall();
+                    System.out.println("Giving yearly raises: ");
+                    System.out.print("What is the sales goal?: ");
+                    double goal = in.nextDouble();
+                    System.out.println("Emlpyees data before raising:");
+                    displayAllCall();
+                    
+                    db.update("UPDATE "+ table + " SET Salary = CASE WHEN Sales>= "+ goal + " THEN Salary*1.1 ELSE Salary *1.05 END");
+                    System.out.println("Emlpyees data after raising:");
+                    displayAllCall();
                     break;
                 case 4:
                     isRunning = false;
@@ -79,49 +87,5 @@ public class App {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void yearlyRaisingCall(){
-        System.out.println("Giving yearly raises: ");
-        System.out.print("What is the sales goal?: ");
-        double goal = in.nextDouble();
-        System.out.println("Emlpyees data before raising:");
-        displayAllCall();
-        int employeesCount = 0;
-        try {
-            ResultSet res =db.query("SELECT COUNT(*) FROM "+ table);
-
-            employeesCount = res.next() ? res.getInt(1) : 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        int[] ids = new int[employeesCount];
-        double[] salaries = new double[employeesCount];
-        double[] sales = new double[employeesCount];
-        ResultSet res = db.query("SELECT * FROM "+table);
-        
-        try {
-            int i = 0;
-            while(res.next()){
-                ids[i] = res.getInt("EmployeeId");
-                salaries[i]=res.getDouble("Salary");
-                sales[i]=res.getDouble("Sales");
-                // giving the rasing
-                System.out.println(i);
-                if (sales[i]>=goal) salaries[i] = salaries[i]+salaries[i]*0.1;
-                else salaries[i] = salaries[i]+salaries[i]*0.05;
-                i++;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        int i =0;
-        for(int id: ids){
-            db.update("UPDATE "+ table + " SET Salary = "+ salaries[i] + " WHERE EmployeeId = "+ id);
-            i++;
-        }
-        System.out.println("Emlpyees data after raising:");
-        displayAllCall();
     }
 }
